@@ -31,7 +31,17 @@ export default class EventService {
      * @return {null | Event}
      */
     getFirstEvent() {
-        return null; //TODO
+        let events = this.getEvents(),
+            firstEvent = null;
+        if (events.length > 0) {
+            firstEvent = events[0];
+        }
+        events.forEach(event => {
+            if (event.startTime < firstEvent.startTime) {
+                firstEvent = event;
+            }
+        });
+        return firstEvent; //TODO
     }
 
     /**
@@ -39,7 +49,18 @@ export default class EventService {
      * @return {null | Event}
      */
     getLastEvent() {
-        return null; //TODO
+        let events = this.getEvents(),
+            firstEvent = null;
+        if (events.length > 0) {
+            firstEvent = events[0];
+        }
+        events.forEach(event => {
+            if (event.startTime > firstEvent.startTime) {
+                firstEvent = event;
+            }
+        });
+
+        return firstEvent;
     }
 
     /**
@@ -47,7 +68,19 @@ export default class EventService {
      * @return {null | Event}
      */
     getLongestEvent() {
-        return null; //TODO
+        let hummanDiff,
+            events = this.getEvents(),
+            firstEvent = null;
+        if (events.length > 0) {
+            firstEvent = events[0];
+            hummanDiff = this.getDurration(firstEvent)
+        }
+        events.forEach(event => {
+            if (this.getDurration(event) > hummanDiff) {
+                firstEvent = event;
+            }
+        });
+        return firstEvent;
     }
 
     /**
@@ -55,7 +88,19 @@ export default class EventService {
      * @return {null | Event}
      */
     getShortestEvent() {
-        return null; //TODO
+        let hummanDiff,
+            events = this.getEvents(),
+            firstEvent = null;
+        if (events.length > 0) {
+            firstEvent = events[0];
+            hummanDiff = this.getDurration(firstEvent)
+        }
+        events.forEach(event => {
+            if (this.getDurration(event) < hummanDiff) {
+                firstEvent = event;
+            }
+        });
+        return firstEvent;
     }
 
     // A implementer en TDD
@@ -97,5 +142,14 @@ export default class EventService {
         let now = Date.now();
         return this.hasEventOn(new Date(now));
     }
-    
+    /**
+     * 
+     * @param {Event} event 
+     * @returns {int} 
+     */
+    getDurration(event) {
+        let diff = event.getEndTime() - event.getStartTime();
+        console.log(diff);
+        return diff;
+    }
 }

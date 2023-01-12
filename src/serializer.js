@@ -6,7 +6,7 @@ export default class EventSerializer {
      * @param {Event| Event[]} event
      * @return {string}
      */
-    serialize(event){
+    serialize(event) {
         return JSON.stringify(event);
     }
 
@@ -15,7 +15,7 @@ export default class EventSerializer {
      * @return {Event | Event[]}
      * @param {string} event
      */
-    unserialize(event){
-        return []; //TODO
+    unserialize(event) {
+        return JSON.parse(event) //TODO
     }
 }

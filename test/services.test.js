@@ -4,7 +4,7 @@ import EventService from "../src/services";
 jest.mock("../src/repository");
 
 
-describe("Event Service",()=> {
+describe("Event Service", () => {
 
     beforeEach(() => {
         // Clear all instances and calls to constructor and all methods:
@@ -17,9 +17,9 @@ describe("Event Service",()=> {
     });
 
     let fakeEvents = [
-        new Event(new Date('2019-12-17T03:24:00'),new Date('2019-12-17T13:24:00'),"Hello World","Campus Numerique","This is an hello world.."),
-        new Event(new Date('2018-12-17T03:24:00'),new Date('1995-12-17T03:24:00'),"First event","Campus Numerique","This is an hello world.."),
-        new Event(new Date('2020-04-01T09:00:00'),new Date('2020-04-01T17:00:00'),"Unit test againt","Campus Numerique","This is an hello world..")
+        new Event(new Date('2019-12-17T03:24:00'), new Date('2019-12-17T13:24:00'), "Hello World", "Campus Numerique", "This is an hello world.."),
+        new Event(new Date('2018-12-17T03:24:00'), new Date('1995-12-17T03:24:00'), "First event", "Campus Numerique", "This is an hello world.."),
+        new Event(new Date('2020-04-01T09:00:00'), new Date('2020-04-01T17:00:00'), "Unit test againt", "Campus Numerique", "This is an hello world..")
     ];
 
     test('getEvents shall call repository', async () => {
@@ -32,4 +32,22 @@ describe("Event Service",()=> {
         let eventService = new EventService(new EventRepository());
         expect(eventService.getEvents().length).toBe(3);
     })
+
+    test('getFirstEvent shall return event with title First event', async () => {
+        let eventService = new EventService(new EventRepository());
+        expect(eventService.getFirstEvent().title).toBe("First event");
+    })
+    test('getLastEvent shall return event with title Unit test againt', async () => {
+        let eventService = new EventService(new EventRepository());
+        expect(eventService.getLastEvent().title).toBe("Unit test againt");
+    })
+    test('getLongestEvent shall return event with title First event', async () => {
+        let eventService = new EventService(new EventRepository());
+        expect(eventService.getLongestEvent().title).toBe("Hello World");
+    })
+    test('getShortestEvent shall return event with title Unit test againt', async () => {
+        let eventService = new EventService(new EventRepository());
+        expect(eventService.getShortestEvent().title).toBe("Unit test againt");
+    })
+
 });

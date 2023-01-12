@@ -15,8 +15,8 @@ export default class EventRepository {
      * Get all events saved in db
      * @return Event[]
      */
-    getAll(){
-        return []; //TODO
+    getAll() {
+        return this._dbDriver.getAll(); //TODO
     }
 
     /**
@@ -24,12 +24,12 @@ export default class EventRepository {
      * return true if succeed
      * @return boolean
      */
-    add(event){
+    add(event) {
         return false; //TODO
     }
 }
 
-export class InMemoryEventRepository extends EventRepository{
+export class InMemoryEventRepository extends EventRepository {
     _events;
 
     constructor(events) {
