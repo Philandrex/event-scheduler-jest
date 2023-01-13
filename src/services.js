@@ -28,23 +28,23 @@ export default class EventService {
 
     /**
      * Get the first upcomming event
-     * @return {null | Event}
+     * @return {[] | Event}
      */
     getFirstEvent() {
         const events = this._eventRepository.getAll();
         events.sort((event1, event2) => {
             return event1.getStartTime() - event2.getStartTime();
         });
-        return events[0] ?? null;
+        return events[0] ?? [];
     }
 
     /**
      * Get the last upcomming event
-     * @return {null | Event}
+     * @return {[] | Event}
      */
     getLastEvent() {
         let events = this.getEvents(),
-            e = null;
+            e = [];
         if (events.length > 0) {
             e = events[0];
         }
@@ -59,12 +59,12 @@ export default class EventService {
 
     /**
      * Get the longest event
-     * @return {null | Event}
+     * @return {[] | Event}
      */
     getLongestEvent() {
         let duration,
             events = this.getEvents(),
-            e = null;
+            e = [];
         if (events.length > 0) {
             e = events[0];
             duration = this.getDuration(e)
@@ -79,12 +79,12 @@ export default class EventService {
 
     /**
      * get the shortest event
-     * @return {null | Event}
+     * @return {[] | Event}
      */
     getShortestEvent() {
         let duration,
             events = this.getEvents(),
-            e = null;
+            e = [];
         if (events.length > 0) {
             e = events[0];
             duration = this.getDuration(e)
@@ -114,11 +114,11 @@ export default class EventService {
     /**
      *
      * @param title
-     * @return {null | Event}
+     * @return {[] | Event}
      */
     getEventByTitle(title) {
         let events = this.getEvents(),
-            e = null;
+            e = [];
         events.forEach(event => {
             if (event.getTitle() === title) {
                 e = event;

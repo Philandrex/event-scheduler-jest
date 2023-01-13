@@ -101,29 +101,29 @@ describe(`null result `, () => {
         expect(eventService.getEvents().length).toBe(0);
     })
 
-    test('getFirstEvent shall return null', async () => {
+    test('getFirstEvent shall return []', async () => {
         let eventService = new EventService(new EventRepository());
-        expect(eventService.getFirstEvent()).toBe(null);
+        expect(eventService.getFirstEvent().length).toBe(0);
     })
 
-    test('getLastEvent shall return null', async () => {
+    test('getLastEvent shall return []', async () => {
         let eventService = new EventService(new EventRepository());
-        expect(eventService.getLastEvent()).toBe(null);
+        expect(eventService.getLastEvent().length).toBe(0);
     })
 
-    test('getLongestEvent shall return null', async () => {
+    test('getLongestEvent shall return []', async () => {
         let eventService = new EventService(new EventRepository());
-        expect(eventService.getLongestEvent()).toBe(null);
+        expect(eventService.getLongestEvent().length).toBe(0);
     })
 
-    test('getShortestEvent shall return null', async () => {
+    test('getShortestEvent shall return []', async () => {
         let eventService = new EventService(new EventRepository());
-        expect(eventService.getShortestEvent()).toBe(null);
+        expect(eventService.getShortestEvent().length).toBe(0);
     })
 
-    test('getEventByTitle shall return null', async () => {
+    test('getEventByTitle shall return []', async () => {
         let eventService = new EventService(new EventRepository());
-        expect(eventService.getEventByTitle("Unit test againt")).toBe(null);
+        expect(eventService.getEventByTitle("Unit test againt").length).toBe(0);
     })
 
     test('hasEventOn shall return an empty array ', async () => {
