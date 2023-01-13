@@ -8,4 +8,5 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "14"
+      - run: npm update
       - run: npm run test
