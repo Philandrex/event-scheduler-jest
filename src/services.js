@@ -140,10 +140,7 @@ export default class EventService {
      * @returns {Boolean}
      */
     isLocationAvailable(time) {
-        if (this.hasEventOn(time).length === 0) {
-            return true
-        };
-        return false;
+        return !this.hasEventOn(time).length > 0
     }
 
     /**

@@ -77,3 +77,70 @@ describe("Event Service", () => {
         expect(eventService.getCurrentEvents().length).toBe(0);
     })
 });
+
+describe(`null result `, () => {
+
+    beforeEach(() => {
+        // Clear all instances and calls to constructor and all methods:
+        EventRepository.mockClear();
+        EventRepository.mockImplementation(() => {
+            return {
+                getAll: () => []
+            }
+        });
+    });
+
+    test('getEvents shall call repository', async () => {
+        let eventService = new EventService(new EventRepository());
+        eventService.getEvents();
+        expect(EventRepository).toHaveBeenCalledTimes(1);
+    })
+
+    test('getEvents shall return 0 result', async () => {
+        let eventService = new EventService(new EventRepository());
+        expect(eventService.getEvents().length).toBe(0);
+    })
+
+    test('getFirstEvent shall return null', async () => {
+        let eventService = new EventService(new EventRepository());
+        expect(eventService.getFirstEvent()).toBe(null);
+    })
+
+    test('getLastEvent shall return null', async () => {
+        let eventService = new EventService(new EventRepository());
+        expect(eventService.getLastEvent()).toBe(null);
+    })
+
+    test('getLongestEvent shall return null', async () => {
+        let eventService = new EventService(new EventRepository());
+        expect(eventService.getLongestEvent()).toBe(null);
+    })
+
+    test('getShortestEvent shall return null', async () => {
+        let eventService = new EventService(new EventRepository());
+        expect(eventService.getShortestEvent()).toBe(null);
+    })
+
+    test('getEventByTitle shall return null', async () => {
+        let eventService = new EventService(new EventRepository());
+        expect(eventService.getEventByTitle("Unit test againt")).toBe(null);
+    })
+
+    test('hasEventOn shall return an empty array ', async () => {
+        let eventService = new EventService(new EventRepository());
+        expect(eventService.hasEventOn(new Date('2019-12-17T03:24:00')).length).toBe(0);
+    })
+
+    test('isLocationAvailable shall return true', async () => {
+        let eventService = new EventService(new EventRepository());
+        expect(eventService.isLocationAvailable(new Date('2019-12-17T03:24:00'))).toBe(true);
+    })
+
+    test('getCurrentEvents shall return 0', async () => {
+        let eventService = new EventService(new EventRepository());
+        expect(eventService.getCurrentEvents().length).toBe(0);
+    })
+
+
+
+})
