@@ -1,6 +1,7 @@
 import EventSerializer from "../src/serializer";
 import Event from "../src/models";
 
+process.env.TZ = "Europe/Vienna"
 
 describe("Event Serializer", () => {
 
