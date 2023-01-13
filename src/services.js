@@ -31,17 +31,11 @@ export default class EventService {
      * @return {null | Event}
      */
     getFirstEvent() {
-        let events = this.getEvents(),
-            e = null;
-        if (events.length > 0) {
-            e = events[0];
-        }
-        events.forEach(event => {
-            if (event.startTime < e.startTime) {
-                e = event;
-            }
+        const events = this._eventRepository.getAll();
+        events.sort((event1, event2) => {
+            return event1.getStartTime() - event2.getStartTime();
         });
-        return e; //TODO
+        return events[0] ?? null;
     }
 
     /**
