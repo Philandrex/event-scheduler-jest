@@ -32,16 +32,16 @@ export default class EventService {
      */
     getFirstEvent() {
         let events = this.getEvents(),
-            firstEvent = null;
+            e = null;
         if (events.length > 0) {
-            firstEvent = events[0];
+            e = events[0];
         }
         events.forEach(event => {
-            if (event.startTime < firstEvent.startTime) {
-                firstEvent = event;
+            if (event.startTime < e.startTime) {
+                e = event;
             }
         });
-        return firstEvent; //TODO
+        return e; //TODO
     }
 
     /**
@@ -50,17 +50,17 @@ export default class EventService {
      */
     getLastEvent() {
         let events = this.getEvents(),
-            firstEvent = null;
+            e = null;
         if (events.length > 0) {
-            firstEvent = events[0];
+            e = events[0];
         }
         events.forEach(event => {
-            if (event.startTime > firstEvent.startTime) {
-                firstEvent = event;
+            if (event.startTime > e.startTime) {
+                e = event;
             }
         });
 
-        return firstEvent;
+        return e;
     }
 
     /**
@@ -68,19 +68,19 @@ export default class EventService {
      * @return {null | Event}
      */
     getLongestEvent() {
-        let hummanDiff,
+        let duration,
             events = this.getEvents(),
-            firstEvent = null;
+            e = null;
         if (events.length > 0) {
-            firstEvent = events[0];
-            hummanDiff = this.getDurration(firstEvent)
+            e = events[0];
+            duration = this.getDuration(e)
         }
         events.forEach(event => {
-            if (this.getDurration(event) > hummanDiff) {
-                firstEvent = event;
+            if (this.getDuration(event) > duration) {
+                e = event;
             }
         });
-        return firstEvent;
+        return e;
     }
 
     /**
@@ -88,19 +88,19 @@ export default class EventService {
      * @return {null | Event}
      */
     getShortestEvent() {
-        let hummanDiff,
+        let duration,
             events = this.getEvents(),
-            firstEvent = null;
+            e = null;
         if (events.length > 0) {
-            firstEvent = events[0];
-            hummanDiff = this.getDurration(firstEvent)
+            e = events[0];
+            duration = this.getDuration(e)
         }
         events.forEach(event => {
-            if (this.getDurration(event) < hummanDiff) {
-                firstEvent = event;
+            if (this.getDuration(event) < duration) {
+                e = event;
             }
         });
-        return firstEvent;
+        return e;
     }
 
     // A implementer en TDD
@@ -123,15 +123,27 @@ export default class EventService {
      * @return {null | Event}
      */
     getEventByTitle(title) {
-        return null
+        let events = this.getEvents(),
+            e = null;
+        events.forEach(event => {
+            if (event.getTitle() === title) {
+                e = event;
+            }
+        });
+        return e;
     }
 
     // A implementer en TDD
     /**
      *
      * @param {Date} time
+     * @returns {Boolean}
      */
     isLocationAvailable(time) {
+        if (this.hasEventOn(time).length === 0) {
+            return true
+        };
+        return false;
     }
 
     /**
@@ -142,14 +154,14 @@ export default class EventService {
         let now = Date.now();
         return this.hasEventOn(new Date(now));
     }
+
     /**
      * 
      * @param {Event} event 
      * @returns {int} 
      */
-    getDurration(event) {
+    getDuration(event) {
         let diff = event.getEndTime() - event.getStartTime();
-        console.log(diff);
         return diff;
     }
 }

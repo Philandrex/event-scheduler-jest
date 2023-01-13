@@ -4,6 +4,7 @@ import EventService from "../src/services";
 jest.mock("../src/repository");
 
 
+
 describe("Event Service", () => {
 
     beforeEach(() => {
@@ -35,19 +36,44 @@ describe("Event Service", () => {
 
     test('getFirstEvent shall return event with title First event', async () => {
         let eventService = new EventService(new EventRepository());
-        expect(eventService.getFirstEvent().title).toBe("First event");
-    })
-    test('getLastEvent shall return event with title Unit test againt', async () => {
-        let eventService = new EventService(new EventRepository());
-        expect(eventService.getLastEvent().title).toBe("Unit test againt");
-    })
-    test('getLongestEvent shall return event with title First event', async () => {
-        let eventService = new EventService(new EventRepository());
-        expect(eventService.getLongestEvent().title).toBe("Hello World");
-    })
-    test('getShortestEvent shall return event with title Unit test againt', async () => {
-        let eventService = new EventService(new EventRepository());
-        expect(eventService.getShortestEvent().title).toBe("Unit test againt");
+        expect(eventService.getFirstEvent()).toBe(fakeEvents[1]);
     })
 
+    test('getLastEvent shall return event with title Unit test againt', async () => {
+        let eventService = new EventService(new EventRepository());
+        expect(eventService.getLastEvent()).toBe(fakeEvents[2]);
+    })
+
+    test('getLongestEvent shall return event with title First event', async () => {
+        let eventService = new EventService(new EventRepository());
+        expect(eventService.getLongestEvent()).toBe(fakeEvents[0]);
+    })
+
+    test('getShortestEvent shall return event with title Unit test againt', async () => {
+        let eventService = new EventService(new EventRepository());
+        expect(eventService.getShortestEvent()).toBe(fakeEvents[2]);
+    })
+
+    test('getEventByTitle shall return event with title Unit test againt', async () => {
+        let eventService = new EventService(new EventRepository());
+        expect(eventService.getEventByTitle("Unit test againt")).toBe(fakeEvents[2]);
+    })
+
+    test('hasEventOn shall return an array with one event with title Hello World', async () => {
+        let eventService = new EventService(new EventRepository());
+        expect(eventService.hasEventOn(new Date('2019-12-17T03:24:00')).length).toBe(1);
+        expect(eventService.hasEventOn(new Date('2019-12-17T03:24:00'))[0]).toBe(fakeEvents[0]);
+    })
+
+    test('isLocationAvailable shall return boolean', async () => {
+        let eventService = new EventService(new EventRepository());
+        expect(eventService.isLocationAvailable(new Date('2019-12-17T03:24:00'))).toBe(false);
+        expect(eventService.isLocationAvailable(Date.now())).toBe(true);
+
+    })
+
+    test('getCurrentEvents shall return 0', async () => {
+        let eventService = new EventService(new EventRepository());
+        expect(eventService.getCurrentEvents().length).toBe(0);
+    })
 });
